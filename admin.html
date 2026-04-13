@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Panel</title>
+<style>
+body{
+font-family:Arial;
+background:#f5f5f5;
+text-align:center;
+}
+
+#loginBox, #panel{
+margin-top:50px;
+}
+
+input{
+padding:10px;
+margin:5px;
+}
+
+button{
+padding:8px 15px;
+margin:5px;
+cursor:pointer;
+}
+
+.card{
+background:white;
+margin:15px auto;
+padding:15px;
+width:300px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+</style>
+</head>
+
+<body>
+
+<h1>Admin Panel 🔐</h1>
+
+<div id="loginBox">
+<input id="user" placeholder="Username"><br>
+<input id="pass" type="password" placeholder="Password"><br>
+<button onclick="login()">Login</button>
+</div>
+
+<div id="panel" style="display:none;">
+<h2>User Messages</h2>
+<div id="data"></div>
+</div>
+
+<script>
+    // LOGIN
+function login(){
+let u=document.getElementById("user").value;
+let p=document.getElementById("pass").value;
+
+// simple login (you can change)
+if(u=="admin" && p=="1234"){
+document.getElementById("loginBox").style.display="none";
+document.getElementById("panel").style.display="block";
+loadData();
+}else{
+alert("Wrong Login ❌");
+}
+}
+
+// LOAD MESSAGES
+function loadData(){
+let messages = JSON.parse(localStorage.getItem("messages")) || [];
+
+let output="";
+
+messages.forEach((m,i)=>{
+output += `
+<div class="card">
+<h3>${m.name}</h3>
+<p>${m.email}</p>
+<p>${m.msg}</p>
+<p>Status: ${m.status}</p>
+
+<button onclick="accept(${i})">Accept</button>
+<button onclick="reject(${i})">Reject</button>
+</div>
+`;
+});
+
+document.getElementById("data").innerHTML = output;
+}
+
+// ACCEPT
+function accept(i){
+let messages = JSON.parse(localStorage.getItem("messages"));
+messages[i].status="accepted";
+localStorage.setItem("messages", JSON.stringify(messages));
+loadData();
+}
+
+// REJECT
+function reject(i){
+let messages = JSON.parse(localStorage.getItem("messages"));
+messages[i].status="rejected";
+localStorage.setItem("messages", JSON.stringify(messages));
+loadData();
+}
+
+</script>
+
+</body>
+</html>
