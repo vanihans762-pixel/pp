@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vani | Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+background:linear-gradient(135deg,#ffe0ec,#ffffff);
+transition:0.4s;
+}
+
+.dark{background:#111;color:white;}
+
+nav{
+background:#ff4d6d;
+padding:15px;
+text-align:center;
+position:sticky;
+top:0;
+}
+
+nav a{
+color:white;
+margin:10px;
+text-decoration:none;
+font-weight:600;
+}
+
+nav a:hover{color:yellow;}
+
+section{padding:80px 20px;text-align:center;}
+
+/* HERO */
+#home{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:linear-gradient(#ff4d6d,#ff8fa3);
+color:white;
+}
+
+.profile{
+width:140px;height:140px;border-radius:50%;
+object-fit:cover;border:4px solid white;
+box-shadow:0 0 25px white;
+animation:float 3s infinite;
+}
+
+@keyframes float{
+50%{transform:translateY(-15px);}
+}
+
+/* typing */
+.typing{
+font-size:40px;
+border-right:3px solid white;
+white-space:nowrap;
+overflow:hidden;
+width:0;
+animation:typing 3s steps(20,end) forwards, blink .7s infinite;
+}
+
+@keyframes typing{to{width:250px}}
+@keyframes blink{50%{border-color:transparent;}}
+
+/* CARDS */
+.projects{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+}
+
+.card{
+background:rgba(255,255,255,0.4);
+backdrop-filter:blur(10px);
+padding:20px;
+width:220px;
+border-radius:15px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.card:hover{
+transform:scale(1.1);
+background:#ff4d6d;
+color:white;
+}
+
+/* SKILLS */
+.skill{
+width:60%;
+margin:10px auto;
+background:#ddd;
+border-radius:20px;
+}
+
+.bar{
+height:10px;
+background:#ff4d6d;
+width:0;
+border-radius:20px;
+}
+
+/* GALLERY */
+.gallery img{
+width:250px;
+margin:10px;
+border-radius:15px;
+transition:0.3s;
+}
+
+.gallery img:hover{transform:scale(1.1);}
+
+/* BUTTON */
+button{
+padding:10px 20px;
+border:none;
+background:#ff4d6d;
+color:white;
+border-radius:20px;
+cursor:pointer;
+}
+
+/* GAME BOX */
+#gameBox{
+display:none;
+background:white;
+padding:20px;
+margin:20px;
+border-radius:15px;
+}
+
+/* SCROLL */
+.fade{
+opacity:0;
+transform:translateY(50px);
+transition:1s;
+}
+.show{opacity:1;transform:translateY(0);}
+
+.toggle{
+position:fixed;
+right:10px;
+top:10px;
+background:white;
+padding:5px 10px;
+border-radius:20px;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="toggle" onclick="darkMode()">🌙</div>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#projects">Projects</a>
+<a href="#skills">Skills</a>
+<a href="#gallery">Gallery</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<!-- HOME -->
+<section id="home">
+<img src="profile.jpg" class="profile">
+<h1 class="typing">Hi, I'm Vani 👋</h1>
+<p>Creative Web Developer 💻</p>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="fade">
+<h2>About Me</h2>
+<p>I am a creative developer who builds modern and interactive websites with animations and UI design.</p>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="fade">
+<h2>Projects</h2>
+<div class="projects">
+<div class="card" onclick="openGame('calc')">Calculator</div>
+<div class="card" onclick="openGame('guess')">Guess Game</div>
+<div class="card" onclick="openGame('rps')">RPS Game</div>
+</div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="fade">
+<h2>Skills</h2>
+<div class="skill"><div class="bar" data="90%"></div></div>
+<div class="skill"><div class="bar" data="80%"></div></div>
+<div class="skill"><div class="bar" data="70%"></div></div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="gallery fade">
+<h2>Gallery</h2>
+<img src="https://source.unsplash.com/300x200/?icecream">
+<img src="https://source.unsplash.com/300x200/?dessert">
+<img src="https://source.unsplash.com/300x200/?cake">
+</section>
+
+<!-- GAME BOX -->
+<div id="gameBox">
+<h2 id="gameTitle"></h2>
+<div id="gameContent"></div>
+<button onclick="closeGame()">Close</button>
+</div>
+
+<!-- CONTACT -->
+<section id="contact" class="fade">
+<h2>Contact</h2>
+<input placeholder="Name"><br>
+<input placeholder="Email"><br>
+<textarea placeholder="Message"></textarea><br>
+<button onclick="alert('Sent')">Send</button>
+</section>
+
+<script>
+
+// DARK MODE
+function darkMode(){document.body.classList.toggle("dark");}
+
+// SCROLL
+let f=document.querySelectorAll('.fade');
+window.addEventListener('scroll',()=>{
+f.forEach(e=>{
+if(e.getBoundingClientRect().top<window.innerHeight-100){
+e.classList.add('show');
+}
+});
+});
+
+// SKILLS
+let bars=document.querySelectorAll('.bar');
+window.addEventListener('scroll',()=>{
+bars.forEach(b=>{
+if(b.getBoundingClientRect().top<window.innerHeight){
+b.style.width=b.getAttribute("data");
+}
+});
+});
+
+// GAMES
+function openGame(g){
+document.getElementById("gameBox").style.display="block";
+
+if(g=="calc"){
+document.getElementById("gameContent").innerHTML=`
+<input id="a"><input id="b">
+<button onclick="res()">Add</button>
+<p id="r"></p>`;
+}
+if(g=="guess"){
+num=Math.floor(Math.random()*10)+1;
+document.getElementById("gameContent").innerHTML=`
+<input id="g"><button onclick="chk()">Check</button>
+<p id="m"></p>`;
+}
+if(g=="rps"){
+document.getElementById("gameContent").innerHTML=`
+<button onclick="p('rock')">Rock</button>
+<button onclick="p('paper')">Paper</button>
+<button onclick="p('scissors')">Scissors</button>
+<p id="rr"></p>`;
+}
+}
+
+function closeGame(){document.getElementById("gameBox").style.display="none";}
+
+function res(){
+let a=+document.getElementById("a").value;
+let b=+document.getElementById("b").value;
+document.getElementById("r").innerText=a+b;
+}
+
+let num=0;
+function chk(){
+let g=document.getElementById("g").value;
+document.getElementById("m").innerText=(g==num)?"Correct":"Try Again";
+}
+
+function p(u){
+let arr=["rock","paper","scissors"];
+let c=arr[Math.floor(Math.random()*3)];
+document.getElementById("rr").innerText=(u==c)?"Draw":( (u=="rock"&&c=="scissors")||(u=="paper"&&c=="rock")||(u=="scissors"&&c=="paper") )?"Win":"Lose";
+}
+
+
+</script>
+
+</body>
+</html>

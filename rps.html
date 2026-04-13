@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPS Arena | Vani Projects</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        body {
+            background: radial-gradient(circle, #ff4d6d, #800020);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .back-link { position: absolute; top: 20px; left: 20px; color: white; text-decoration: none; opacity: 0.7; }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .score-board { display: flex; justify-content: space-around; margin-bottom: 30px; font-size: 1.2rem; }
+        
+        .display-area {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            font-size: 4rem;
+            margin: 20px 0;
+            height: 100px;
+        }
+
+        .choice-btn {
+            background: white;
+            border: none;
+            font-size: 2.5rem;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 10px;
+        }
+
+        .choice-btn:hover { transform: scale(1.2) rotate(10deg); background: #ff4d6d; }
+
+        #status { font-size: 1.5rem; font-weight: 600; margin-top: 20px; min-height: 35px; }
+
+        .shake { animation: shake 0.5s ease-in-out; }
+        @keyframes shake {
+            0%, 100% { transform: translateY(0); }
+            25% { transform: translateY(-20px); }
+            75% { transform: translateY(20px); }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-link">← Back to Portfolio</a>
+
+    <div class="game-card">
+        <h2>RPS Arena</h2>
+        <div class="score-board">
+            <div>You: <span id="userScore">0</span></div>
+            <div>CPU: <span id="cpuScore">0</span></div>
+        </div>
+
+        <div class="display-area">
+            <div id="uEmoji">❓</div>
+            <div id="cEmoji">❓</div>
+        </div>
+
+        <div id="status">Choose your weapon!</div>
+
+        <div style="margin-top: 30px;">
+            <button class="choice-btn" onclick="play('rock')">✊</button>
+            <button class="choice-btn" onclick="play('paper')">✋</button>
+            <button class="choice-btn" onclick="play('scissors')">✌️</button>
+        </div>
+    </div>
+
+    <script>
+        let uScore = 0;
+        let cScore = 0;
+        const emojis = { rock: "✊", paper: "✋", scissors: "✌️" };
+
+        function play(userChoice) {
+            const choices = ['rock', 'paper', 'scissors'];
+            const cpuChoice = choices[Math.floor(Math.random() * 3)];
+            
+            // UI Animations
+            const uDisplay = document.getElementById('uEmoji');
+            const cDisplay = document.getElementById('cEmoji');
+            uDisplay.classList.add('shake');
+            cDisplay.classList.add('shake');
+
+            setTimeout(() => {
+                uDisplay.classList.remove('shake');
+                cDisplay.classList.remove('shake');
+                
+                uDisplay.innerText = emojis[userChoice];
+                cDisplay.innerText = emojis[cpuChoice];
+
+                determineWinner(userChoice, cpuChoice);
+            }, 500);
+        }
+
+        function determineWinner(u, c) {
+            const status = document.getElementById('status');
+            
+            if (u === c) {
+                status.innerText = "It's a Draw! 🤝";
+                status.style.color = "white";
+            } else if (
+                (u === 'rock' && c === 'scissors') ||
+                (u === 'paper' && c === 'rock') ||
+                (u === 'scissors' && c === 'paper')
+            ) {
+                status.innerText = "You Win! 🎉";
+                status.style.color = "#22c55e";
+                uScore++;
+                document.getElementById('userScore').innerText = uScore;
+            } else {
+                status.innerText = "CPU Wins! 🤖";
+                status.style.color = "#ff8fa3";
+                cScore++;
+                document.getElementById('cpuScore').innerText = cScore;
+            }
+        }
+    </script>
+</body>
+</html>

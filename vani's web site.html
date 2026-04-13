@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vani Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+background:linear-gradient(135deg,#ffe0ec,#ffffff);
+color:#333;
+scroll-behavior:smooth;
+}
+
+/* NAVBAR */
+nav{
+background:#ff4d6d;
+padding:15px;
+position:sticky;
+top:0;
+text-align:center;
+z-index:1000;
+}
+
+nav a{
+color:white;
+margin:10px;
+text-decoration:none;
+font-weight:600;
+transition:0.3s;
+}
+
+nav a:hover{color:yellow;}
+
+/* HOME */
+#home{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:linear-gradient(to right,#ff4d6d,#ff8fa3);
+color:white;
+}
+
+.profile-pic{
+width:140px;
+height:140px;
+border-radius:50%;
+object-fit:cover;
+border:4px solid white;
+box-shadow:0 0 25px white;
+transition:0.4s;
+}
+
+.profile-pic:hover{
+transform:scale(1.1);
+}
+
+/* SECTION */
+section{
+padding:80px 20px;
+text-align:center;
+}
+
+/* ABOUT */
+#about{
+max-width:700px;
+margin:auto;
+}
+
+/* PROJECT CARDS */
+.projects{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+width:220px;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+cursor:pointer;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+background:#ff4d6d;
+color:white;
+}
+
+/* CONTACT */
+input,textarea{
+width:250px;
+padding:10px;
+margin:5px;
+border-radius:5px;
+border:1px solid #ccc;
+}
+
+/* BUTTON */
+button{
+padding:10px 20px;
+border:none;
+background:#ff4d6d;
+color:white;
+border-radius:20px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:black;
+transform:scale(1.1);
+}
+
+/* GAME BOX */
+#gameBox{
+display:none;
+background:white;
+padding:20px;
+margin:20px;
+border-radius:15px;
+box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+/* FOOTER */
+footer{
+background:#ff4d6d;
+color:white;
+padding:15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<!-- HOME -->
+<section id="home">
+<img src="profile.jpg" class="profile-pic">
+<h1>Hi, I'm Vani 👋</h1>
+<p>Creative Web Developer 💻</p>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+<h2>About Me</h2>
+<p>
+Hello! I'm Vani, a passionate and creative web developer who enjoys building modern and user-friendly websites. 
+I love working with HTML, CSS, and JavaScript to design attractive layouts and interactive features. 
+I continuously improve my skills by creating projects like portfolio websites, mini games, and business sites. 
+My goal is to become a professional developer and create unique digital experiences.
+</p>
+</section>
+
+<section id="projects" class="fade-in">
+    <h2 class="section-title">My Lab 🚀</h2>
+    <p style="margin-bottom: 40px; color: #666;">Explore my interactive mini-projects and games.</p>
+
+    <div class="projects">
+        
+        <a href="calculator.html" class="card">
+            <div class="card-icon">🧮</div>
+            <h3>Smart Calc</h3>
+            <p>Glassmorphism UI with advanced math logic.</p>
+            <span class="launch-btn">Play Now →</span>
+        </a>
+
+        <a href="snake.html" class="card">
+            <div class="card-icon">🐍</div>
+            <h3>3D Snake</h3>
+            <p>Neon graphics with realistic 3D movement.</p>
+            <span class="launch-btn">Play Now →</span>
+        </a>
+
+        <a href="rps.html" class="card">
+            <div class="card-icon">✊</div>
+            <h3>RPS Arena</h3>
+            <p>Battle against a smart AI with visual effects.</p>
+            <span class="launch-btn">Play Now →</span>
+        </a>
+
+    </div>
+</section><!-- CONTACT -->
+<section id="contact">
+<h2>Contact Me</h2>
+
+<input placeholder="Name"><br>
+<input placeholder="Email"><br>
+<textarea placeholder="Message"></textarea><br>
+
+<button onclick="send()">Send</button>
+</section>
+
+<footer>
+<p>© 2026 Vani | Portfolio 💖</p>
+</footer>
+
+<script>
+
+// MESSAGE
+function send(){
+alert("Message Sent 😊");
+}
+
+// OPEN GAME
+function openGame(game){
+document.getElementById("gameBox").style.display="block";
+
+if(game=="calc"){
+document.getElementById("gameTitle").innerText="Calculator";
+document.getElementById("gameContent").innerHTML=`
+<input id="n1" placeholder="Number 1"><br>
+<input id="n2" placeholder="Number 2"><br>
+<button onclick="add()">Add</button>
+<p id="res"></p>`;
+}
+
+if(game=="guess"){
+num=Math.floor(Math.random()*10)+1;
+document.getElementById("gameTitle").innerText="Guess Number";
+document.getElementById("gameContent").innerHTML=`
+<input id="g" placeholder="1-10"><br>
+<button onclick="check()">Check</button>
+<p id="msg"></p>`;
+}
+
+if(game=="rps"){
+document.getElementById("gameTitle").innerText="Rock Paper Scissors";
+document.getElementById("gameContent").innerHTML=`
+<button onclick="play('rock')">Rock</button>
+<button onclick="play('paper')">Paper</button>
+<button onclick="play('scissors')">Scissors</button>
+<p id="r"></p>`;
+}
+}
+
+function closeGame(){
+document.getElementById("gameBox").style.display="none";
+}
+
+// CALCULATOR
+function add(){
+let a=Number(document.getElementById("n1").value);
+let b=Number(document.getElementById("n2").value);
+document.getElementById("res").innerText="Result: "+(a+b);
+}
+
+// GUESS
+let num=0;
+function check(){
+let g=document.getElementById("g").value;
+document.getElementById("msg").innerText=(g==num)?"Correct 🎉":"Try Again ❌";
+}
+
+// RPS
+function play(u){
+let arr=["rock","paper","scissors"];
+let c=arr[Math.floor(Math.random()*3)];
+
+let r="";
+if(u==c) r="Draw";
+else if(
+(u=="rock"&&c=="scissors")||
+(u=="paper"&&c=="rock")||
+(u=="scissors"&&c=="paper")
+) r="You Win 🎉";
+else r="Lose 😢";
+
+document.getElementById("r").innerText=r+" (Comp:"+c+")";
+}
+
+</script>
+</body>
+</html>
